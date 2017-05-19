@@ -77,7 +77,7 @@ def write_bom_seeed(output_file_slug, components):
         bomwriter = csv.DictWriter(csvfile, fieldnames=field_names, delimiter=',',
                     quotechar='"', quoting=csv.QUOTE_MINIMAL)
         bomwriter.writeheader()
-        for p in parts:
+        for p in sorted(parts.keys()):
             pieces = sorted(parts[p], key=natural_keys)
             designators = ",".join(pieces)
             bomwriter.writerow({'Part/Designator': designators,
