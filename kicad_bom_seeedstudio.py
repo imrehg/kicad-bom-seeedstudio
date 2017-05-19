@@ -36,7 +36,7 @@ def parse_kicad_xml(input_file):
         info = {}
         fields = f.find('fields')
         opl, mpn = None, None
-        if fields:
+        if fields is not None:
             for x in fields:
                 if x.attrib['name'] == 'SKU':
                     opl = x.text
