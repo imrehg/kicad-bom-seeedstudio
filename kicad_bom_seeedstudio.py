@@ -38,9 +38,9 @@ def parse_kicad_xml(input_file):
         opl, mpn = None, None
         if fields is not None:
             for x in fields:
-                if x.attrib['name'] == 'SKU':
+                if x.attrib['name'].upper() == 'SKU':
                     opl = x.text
-                elif x.attrib['name'] == 'MPN':
+                elif x.attrib['name'].upper() == 'MPN':
                     mpn = x.text
         if opl:
             components[name] = opl
