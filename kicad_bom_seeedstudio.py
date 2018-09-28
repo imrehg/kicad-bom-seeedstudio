@@ -28,6 +28,7 @@ def parse_kicad_xml(input_file):
     components = {}
     parts = {}
     missing = []
+    dnm_components = []
 
     tree = ET.parse(input_file)
     root = tree.getroot()
@@ -35,24 +36,33 @@ def parse_kicad_xml(input_file):
         name = f.attrib['ref']
         info = {}
         fields = f.find('fields')
-        opl, mpn = None, None
+        opl, mpn, dnm = None, None, False
         if fields is not None:
+            dnm = False
             for x in fields:
+                if x.attrib['name'].upper() == 'DNM':
+                    dnm = True
                 if x.attrib['name'].upper() == 'SKU':
                     opl = x.text
                 elif x.attrib['name'].upper() == 'MPN':
                     mpn = x.text
-        if opl:
-            components[name] = opl
-        elif mpn:
-            components[name] = mpn
+        if not dnm:
+            if opl:
+                components[name] = opl
+            elif mpn:
+                components[name] = mpn
+            else:
+                missing += [name]
+                continue
         else:
-            missing += [name]
+            dnm_components += [name]
             continue
+
         if components[name] not in parts:
             parts[components[name]] = []
+
         parts[components[name]] += [name]
-    return components, missing
+    return components, missing, dnm_components
 
 def write_bom_seeed(output_file_slug, components):
     """Write the BOM according to the Seeed Studio Fusion PCBA template available at:
@@ -89,8 +99,11 @@ if __name__ == "__main__":
     input_file = sys.argv[1]
     output_file = sys.argv[2]
 
-    components, missing = parse_kicad_xml(input_file)
+    components, missing, dnm_components = parse_kicad_xml(input_file)
     write_bom_seeed(output_file, components)
+    if len(dnm_components) > 0:
+        print("** INFO **: parts with do not mount (DNM) atributtes were not included")
+        print(dnm_components)
     if len(missing) > 0:
         print("** Warning **: there were parts with missing SKU/MFP")
         print(missing)
