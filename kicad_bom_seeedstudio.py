@@ -102,8 +102,8 @@ if __name__ == "__main__":
     components, missing, dnm_components = parse_kicad_xml(input_file)
     write_bom_seeed(output_file, components)
     if len(dnm_components) > 0:
-        print("** INFO **: parts with do not mount (DNM) atributtes were not included")
+        print("\n** Info **: parts with do not mount (DNM) atributte were not included")
         print(dnm_components)
     if len(missing) > 0:
-        print("** Warning **: there were parts with missing SKU/MFP")
+        print("\n** Warning **: there were parts with missing SKU/MFP")
         print(missing)
