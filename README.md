@@ -11,7 +11,7 @@ C1,RHA,1
 "D1,D2",CC0603KRX7R9BB102,2
 ```
 
-Components with DNM attribute will be excluded by default.
+Note: Components with `DNM` attribute will be excluded by default.
 
 ## How to use it
 
