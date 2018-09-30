@@ -11,6 +11,8 @@ C1,RHA,1
 "D1,D2",CC0603KRX7R9BB102,2
 ```
 
+Note: Components with `DNM` attribute will be excluded by default.
+
 ## How to use it
 
 This plugin is set up to use the KiCad schematic's part data as it is
