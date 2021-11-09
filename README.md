@@ -1,6 +1,6 @@
 # kicad-bom-seeedstudio
 
-A [KiCad](https://kicad-pcb.org) Bill-of-Materials (BOM) plugin to follow
+A [KiCad](https://kicad.org) Bill-of-Materials (BOM) plugin to follow
 [SeeedStudio](https://www.seedstudio.com)'s [Fusion PCBA](https://www.seeedstudio.com/fusion_pcb.html)
 assembly service's [template](https://statics3.seeedstudio.com/assets/file/fusion/bom_template_2016-08-18.csv),
 that is:
